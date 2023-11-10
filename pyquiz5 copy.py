@@ -1,4 +1,7 @@
 # coding: latin1
+# encoding: utf-8
+# encoding: iso-8859-1
+# encoding: win-1252
 import pygame
 import pygame.gfxdraw
 import sys
@@ -13,8 +16,10 @@ pygame.mixer.init()
 hit = pygame.mixer.Sound("sounds/hit.wav")
 screen = pygame.display.set_mode((1200, 600))
 clock = pygame.time.Clock()
-test_font = pygame.font.SysFont("calibri", 25)
-background_surf = pygame.image.load('graficos/background.png').convert()
+# test_font = pygame.font.SysFont("Arial", 40)
+test_font = pygame.font.Font("font/Pixeltype.ttf", 40)
+background_surf = pygame.image.load('graficos/Tela_Inicial.png').convert()
+background_surf = pygame.transform.scale(background_surf, (1200, 600))
 game_state = "menu"
 materia = "none"
 
@@ -126,7 +131,6 @@ class Button(pygame.sprite.Sprite):
                 self.pressed = 1
 
 class Botao_menu():
-
     def __init__(self, x, y, image, scale, type):
         width = image.get_width()
         height = image.get_height()
@@ -211,23 +215,23 @@ def check_score(answered="wrong"):
             kill()
             time.sleep(.1)
             points +=1
-        score.change_text("Você pontuou " + str(points))
+        score.change_text("Voc? pontuou " + str(points))
     time.sleep(.5)
 
 
 
 
 questions = [
-    ["Qual bicho transmite Doença de Chagas?", ["Barbeiro", "Barata", "Pulga", "Abelha"]],
-    ["Qual fruto é conhecido no Norte e Nordeste como jerimum", ["Abóbora", "Caju", "Chuchu", "Côco"]],
-    ["Qual é o coletivo de cães?", ["Matilha", "Rebanho", "Alcateia", "Manada"]],
-    ["Qual é o triângulo que tem todos os lados diferentes?", ["Escaleno", "Isósceles", "Equilátero", "Trapézio"]],
-    ["Quem compôs o Hino Nacional?", ["Manoel da Silva", "Manuel Bandeira", "Castro Alvez", "Dom Pedro I"]],
-    ["Qual é o antônimo de malograr?", ["Conseguir", "Fracassar", "Perder", "Desprezar"]],
-    ["Em que país nasceu Carmem Miranda?", ["Portugal", "Espanha", "Brasil", "Argentina"]],
-    ["Qual foi o último Presidente do período da ditadura militar no Brasil?", ["João figueiredo", "Costa e silva", "Ernesto Geisel", "Emílio Medici"]],
-    ["Seguindo a sequência do baralho, qual carta vem depois do dez", ["Valete", "Rainha", "Rei", "11"]],
-    ["O adjetivo venoso está relacionado a:", ["Veia", "Vento", "Veneno", "Venom"]],
+    ["Qual bicho transmite Doen?a de Chagas?", ["Barbeiro", "Barata", "Pulga", "Abelha"]],
+    ["Qual fruto ? conhecido no Norte e Nordeste como jerimum", ["Ab?bora", "Caju", "Chuchu", "C?co"]],
+    ["Qual ? o coletivo de c?es?", ["Matilha", "Rebanho", "Alcateia", "Manada"]],
+    ["Qual ? o tri?ngulo que tem todos os lados diferentes?", ["Escaleno", "Is?sceles", "Equil?tero", "Trap?zio"]],
+    ["Quem comp?s o Hino Nacional?", ["Manoel da Silva", "Manuel Bandeira", "Castro Alvez", "Dom Pedro I"]],
+    ["Qual ? o ant?nimo de malograr?", ["Conseguir", "Fracassar", "Perder", "Desprezar"]],
+    ["Em que pa?s nasceu Carmem Miranda?", ["Portugal", "Espanha", "Brasil", "Argentina"]],
+    ["Qual foi o ?ltimo Presidente do per?odo da ditadura militar no Brasil?", ["Jo?o figueiredo", "Costa e silva", "Ernesto Geisel", "Em?lio Medici"]],
+    ["Seguindo a sequ?ncia do baralho, qual carta vem depois do dez", ["Valete", "Rainha", "Rei", "11"]],
+    ["O adjetivo venoso est? relacionado a:", ["Veia", "Vento", "Veneno", "Venom"]],
 ]
 
 
@@ -321,7 +325,7 @@ def loop():
                 materia = "programacao"
                 game_state = "Perguntas"
             
-            draw_text('Escolha  uma  Materia', test_font, (255, 255, 255), 600, 150)
+            draw_text('Escolha  uma  Matéria', test_font, (255, 255, 255), 600, 150)
             draw_text('Matematica', test_font, (255, 255, 255), 150, 295)
             draw_text('Geografia', test_font, (255, 255, 255), 450, 295)
             draw_text('Historia', test_font, (255, 255, 255), 750, 295)
