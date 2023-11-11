@@ -15,7 +15,7 @@ pygame.mixer.init()
 hit = pygame.mixer.Sound("sounds/hit.wav")
 screen = pygame.display.set_mode((1200, 600))
 clock = pygame.time.Clock()
-test_font = pygame.font.SysFont("Arial", 40)
+test_font = pygame.font.SysFont("Arial", 36)
 # test_font = pygame.font.Font("font/Pixeltype.ttf", 40)
 background_surf = pygame.image.load('graficos/Tela_Inicial.png').convert()
 background_surf = pygame.transform.scale(background_surf, (1200, 600))
@@ -324,7 +324,7 @@ def loop():
                 materia = "programacao"
                 game_state = "Perguntas"
             
-            draw_text('Escolha  uma  MatÃ©ria', test_font, (255, 255, 255), 600, 150)
+            draw_text('Escolha  uma  Matéria', test_font, (255, 255, 255), 600, 150)
             draw_text('Matematica', test_font, (255, 255, 255), 150, 295)
             draw_text('Geografia', test_font, (255, 255, 255), 450, 295)
             draw_text('Historia', test_font, (255, 255, 255), 750, 295)
