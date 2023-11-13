@@ -17,9 +17,9 @@ screen = pygame.display.set_mode((1200, 600))
 clock = pygame.time.Clock()
 test_font = pygame.font.SysFont("Arial", 36)
 # test_font = pygame.font.Font("font/Pixeltype.ttf", 40)
-background_surf = pygame.image.load('graficos/Tela_Inicial.png').convert()
+background_surf = pygame.image.load('graficos/background1.png').convert()
 background_surf = pygame.transform.scale(background_surf, (1200, 600))
-game_state = "menu"
+game_state = "Start"
 materia = "none"
 
 
@@ -305,8 +305,10 @@ def loop():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
-
-        if game_state == "menu":
+        if game_state == "Start":
+            draw_text('PyQuiz', test_font, (255, 0, 0), 600, 150)
+            
+        elif game_state == "menu":
             if botao_matematica.draw(screen):
                 hit.play()
                 materia = "matematica"
