@@ -12,12 +12,12 @@ from label import *
 
 pygame.init()
 pygame.mixer.init()
-hit = pygame.mixer.Sound("sounds/hit.wav")
+hit = pygame.mixer.Sound("audios/hit.wav")
 screen = pygame.display.set_mode((1200, 600))
 clock = pygame.time.Clock()
 test_font = pygame.font.SysFont("Arial", 36)
 # test_font = pygame.font.Font("font/Pixeltype.ttf", 40)
-background_surf = pygame.image.load('graficos/background1.png').convert()
+background_surf = pygame.image.load('imagens/background1.png').convert()
 background_surf = pygame.transform.scale(background_surf, (1200, 600))
 game_state = "Start"
 materia = "none"
@@ -166,14 +166,16 @@ def draw_text(text, font, color, x, y):
     screen.blit(img_sombra, img_rect_sombra)
     screen.blit(img, img_rect)
 
-menu_botao_surf = pygame.image.load('graficos/botao_menu1.png').convert_alpha()
+menu_botao_surf = pygame.image.load('imagens/botao_menu.png').convert_alpha()
 background_surf = pygame.transform.scale(background_surf, (1200, 600))
 
-botao_matematica = Botao_menu(150, 295, menu_botao_surf, 0.4, "Matematica")
-botao_geografia = Botao_menu(450, 295, menu_botao_surf, 0.4, "Geografia")
+
+botao_matematica = Botao_menu(602, 356, menu_botao_surf, 0.4, "Matematica")
+botao_geografia = Botao_menu(602, 549, menu_botao_surf, 0.4, "Geografia")
 botao_historia = Botao_menu(750, 295, menu_botao_surf, 0.4, "Historia")
 botao_programacao = Botao_menu(1050, 295, menu_botao_surf, 0.4, "Programacao")
-botao_menu = Botao_menu(600, 500, menu_botao_surf, 0.4, "Menu")
+
+botao_menu = Botao_menu(602, 356, menu_botao_surf, 0.5, "menu")
 # ACTION FOR BUTTON CLICK ================
 
 def on_click():
@@ -305,10 +307,17 @@ def loop():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
+
         if game_state == "Start":
+
+            if botao_menu.draw(screen):
+                hit.play()
+                game_state = "menu"
+                
             draw_text('PyQuiz', test_font, (255, 0, 0), 600, 150)
             
         elif game_state == "menu":
+            
             if botao_matematica.draw(screen):
                 hit.play()
                 materia = "matematica"
