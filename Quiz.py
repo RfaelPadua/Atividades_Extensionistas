@@ -59,13 +59,7 @@ class Quiz(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
     
-    def draw_alternativa(text, font, color, x, y):
-    img = font.render(text, True, color)
-    img_rect = img.get_rect(midleft=(x, y))
-    img_sombra = font.render(text, True, (0,0,0))
-    img_rect_sombra = img.get_rect(midleft=(x+2, y+2))
-    tela.blit(img_sombra, img_rect_sombra)
-    tela.blit(img, img_rect)
+    
 
     def pergunta():
         draw_text(questions[0][0], fonte, (255, 255, 255), 0, 40)
@@ -93,16 +87,16 @@ class Quiz(pygame.sprite.Sprite):
 
 def draw_text(text, font, color, x, y):
     img = font.render(text, True, color)
-    img_rect = img.get_rect(midleft=(x, y))
+    img_rect = img.get_rect(center=(x, y))
     img_sombra = font.render(text, True, (0,0,0))
-    img_rect_sombra = img.get_rect(midleft=(x+2, y+2))
+    img_rect_sombra = img.get_rect(center=(x+2, y+2))
     tela.blit(img_sombra, img_rect_sombra)
     tela.blit(img, img_rect)
 
 # Inicializando o pygame
 pygame.init()
 pygame.mixer.init()
-tela = pygame.display.set_mode((1200, 600))
+tela = pygame.display.set_mode((1200, 675))
 hit_sound = pygame.mixer.Sound('audios/hit.wav')
 pygame.display.set_caption('Quiz')
 relogio = pygame.time.Clock()
@@ -111,13 +105,14 @@ materia = ''
 clicou = False
 fonte = pygame.font.SysFont('Arial', 30)
 
-background_inicio = pygame.image.load('imagens/background.png').convert()
-botao = pygame.image.load('imagens/botao_menu.png').convert_alpha()
+background_inicio = pygame.image.load('imagens/background1.png').convert()
+background_inicio = pygame.transform.scale(background_inicio, (1200, 675))
+botao = pygame.image.load('imagens/botao_menu2.png').convert_alpha()
 
-botao_menu = Botao_menu(600, 300, botao, 0.5, '')
+botao_menu = Botao_menu(600, 380, botao, 0.93, '')
 botao_voltar = Botao_menu(150, 570, botao, 0.5, '')
-botao_matematica = Botao_menu(600, 300, botao, 0.5, 'Matematica')
-botao_geografia = Botao_menu(600, 400, botao, 0.5, 'Geografia')
+botao_matematica = Botao_menu(600, 380, botao, 0.93, 'Matematica')
+botao_geografia = Botao_menu(600, 485, botao, 0.93, 'Geografia')
 
 while True:
     tela.fill((0, 0, 0))
@@ -158,8 +153,8 @@ while True:
             hit_sound.play()
             status_jogo = 'inicio'
         
-        draw_text('Matematica', fonte, (255, 255, 255), 600, 300)
-        draw_text('Geografia', fonte, (255, 255, 255), 600, 400)
+        draw_text('Matematica', fonte, (255, 255, 255), 600, 380)
+        draw_text('Geografia', fonte, (255, 255, 255), 600, 485)
         draw_text('Voltar', fonte, (255, 255, 255), 150, 570)
         pygame.display.update()
     
