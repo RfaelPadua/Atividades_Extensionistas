@@ -44,7 +44,7 @@ class Botao_menu(pygame.sprite.Sprite):
 # Classe para criar os botões das respostas
 class Quiz(pygame.sprite.Sprite):
     global alternativas_ordem, questions, questao_atual
-    questao_atual = random.randint(0, 9)
+    questao_atual = random.randint(0,len(questions))
 
     alternativas_ordem = [0, 1, 2, 3]
     # random.shuffle(alternativas_ordem)
