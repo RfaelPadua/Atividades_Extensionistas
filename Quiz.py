@@ -63,11 +63,11 @@ class Quiz(pygame.sprite.Sprite):
 
         palavras_pergunta = [palavra.split(' ') for palavra in questions[materia][materia_cont_perguntas[materia]][0].splitlines()]
         espaco = fonte.size(' ')[0]
-        x, y = 250,170
+        x, y = 250,190
 
         for linha in palavras_pergunta:
             for palavra in linha:
-                palavra_superficie = fonte.render(palavra, True, (0, 0, 0))
+                palavra_superficie = fonte2.render(palavra, True, (255, 255, 255))
                 palavra_largura, palavra_altura = palavra_superficie.get_size()
                 if x + palavra_largura >= 950:
                     x = 250
@@ -210,9 +210,9 @@ materia = 0
 
 points = 0
 clicou = False
-fonte = pygame.font.Font('font/Grand9K_Pixel.ttf', 48)
-fonte_outline = pygame.font.Font('font/Grand9K_Pixel.ttf', 48)
-fonte2 = pygame.font.Font('font/FonteGiz.ttf',48)
+fonte = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
+fonte_outline = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
+fonte2 = pygame.font.Font('font/Chalk Board.ttf',52)
 
 background_inicio = pygame.image.load('imagens/Tela_Inicial.jpg').convert()
 background_inicio = pygame.transform.scale(background_inicio, (1200, 675))
