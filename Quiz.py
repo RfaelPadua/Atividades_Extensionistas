@@ -52,9 +52,9 @@ class Quiz(pygame.sprite.Sprite):
 
 
     def draw_text_quiz(text, color, x, y):
-        global fonte2
+        global fonte_alternativa
         
-        img = fonte2.render(text, True,color)
+        img = fonte_alternativa.render(text, True,color)
         img_rect = img.get_rect(midleft=(x, y))
         tela.blit(img, img_rect)
 
@@ -62,7 +62,7 @@ class Quiz(pygame.sprite.Sprite):
     def pergunta(self):
 
         palavras_pergunta = [palavra.split(' ') for palavra in questions[materia][materia_cont_perguntas[materia]][0].splitlines()]
-        espaco = fonte.size(' ')[0]
+        espaco = fonte2.size(' ')[0]
         x, y = 250,190
 
         for linha in palavras_pergunta:
@@ -103,72 +103,101 @@ class Quiz(pygame.sprite.Sprite):
         
         return action
 
+    def alternativas_certas_erradas(self, x, y, image, scale, questions, alternativa):
+        
+        string_alternativas = ['A. ', 'B. ', 'C. ', 'D. ']
+        self.botao_alternativa(self, x, y, image, scale)
+        self.draw_text_quiz(string_alternativas[alternativa-1], (0, 0, 0), x-175, y+10)
+        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][alternativa], (0, 0, 0), x-135, y+10)
+        pygame.display.update()
+
     
     def alternativa(self):
         global materia_cont_perguntas, points, materia
-        A = [350, 450]  # Coordenadas alteradas
-        B = [850, 450]  # Coordenadas alteradas
-        C = [350, 625]  # Coordenadas alteradas
-        D = [850, 625]  # Coordenadas alteradas
+        
+        clicou_alternativa = False
+        
+        A = [350, 480]  # Coordenadas alteradas
+        B = [850, 480]  # Coordenadas alteradas
+        C = [350, 580]  # Coordenadas alteradas
+        D = [850, 580]  # Coordenadas alteradas
 
-        if self.botao_alternativa(self, A[0], A[1], botao, 0.7):
-            if questions[materia][materia_cont_perguntas[materia]][5] == 1:
+        
+
+        if self.botao_alternativa(self, A[0], A[1], alternativa_botao, 0.7):
+            certo = questions[materia][materia_cont_perguntas[materia]][5] == 1
+            clicou_alternativa = True
+            if certo:
                 som_acertou.play()
-                materia_cont_perguntas[materia] += 1
                 points += 1
-                print(points)
+                certo = True
             else:
-                materia_cont_perguntas[materia] += 1
                 som_erro.play()
+            
                 
 
-        self.draw_text_quiz('A. ', (0, 0, 0), A[0]-130, A[1])
-        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][1], (0, 0, 0), A[0]-90, A[1])
+        self.draw_text_quiz('A. ', (0, 0, 0), A[0]-175, A[1]+10)
+        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][1], (0, 0, 0), A[0]-135, A[1]+10)
 
-        if self.botao_alternativa(self, B[0], B[1], botao, 0.7):  # Coordenadas alteradas
-            if questions[materia][materia_cont_perguntas[materia]][5] == 2:
+        if self.botao_alternativa(self, B[0], B[1], alternativa_botao, 0.7):  # Coordenadas alteradas
+            certo = questions[materia][materia_cont_perguntas[materia]][5] == 2
+            clicou_alternativa = True
+            if certo:
                 som_acertou.play()
-                materia_cont_perguntas[materia] += 1
                 points += 1
-                print(points)
             else:
-                materia_cont_perguntas[materia] += 1
-                print(points)
                 som_erro.play()
 
+        self.draw_text_quiz('B. ', (0, 0, 0), B[0]-175, B[1]+10)  # Coordenadas alteradas
+        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][2], (0, 0, 0), B[0]-135, B[1]+10)  # Coordenadas alteradas
 
-        self.draw_text_quiz('B. ', (0, 0, 0), B[0]-130, B[1])  # Coordenadas alteradas
-        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][2], (0, 0, 0), B[0]-90, B[1])  # Coordenadas alteradas
-
-        if self.botao_alternativa(self, C[0], C[1], botao, 0.7):  # Coordenadas alteradas
+        if self.botao_alternativa(self, C[0], C[1], alternativa_botao, 0.7):  # Coordenadas alteradas
+            clicou_alternativa = True
             if questions[materia][materia_cont_perguntas[materia]][5] == 3:
                 som_acertou.play()
-                materia_cont_perguntas[materia] += 1
                 points += 1
-                print(points)
             else:
-                materia_cont_perguntas[materia] += 1
-                print(points)
                 som_erro.play()
 
-        self.draw_text_quiz('C. ', (0, 0, 0), C[0]-130, C[1])  # Coordenadas alteradas
-        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][3], (0, 0, 0), C[0]-90, C[1])  # Coordenadas alteradas
+        self.draw_text_quiz('C. ', (0, 0, 0), C[0]-175, C[1]+10)  # Coordenadas alteradas
+        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][3], (0, 0, 0), C[0]-135, C[1]+10)  # Coordenadas alteradas
 
-        if self.botao_alternativa(self, D[0], D[1], botao, 0.7):  # Coordenadas alteradas
+        if self.botao_alternativa(self, D[0], D[1], alternativa_botao, 0.7):  # Coordenadas alteradas
+            clicou_alternativa = True
             if questions[materia][materia_cont_perguntas[materia]][5] == 4:
                 som_acertou.play()
-                materia_cont_perguntas[materia] += 1
                 points += 1
-                print(points)
             else:
-                materia_cont_perguntas[materia] += 1
-                print(points)
                 som_erro.play()
 
-        self.draw_text_quiz('D. ', (0, 0, 0), D[0]-130, D[1])  # Coordenadas alteradas
-        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][4], (0, 0, 0), D[0]-90, D[1])  # Coordenadas alteradas
+        self.draw_text_quiz('D. ', (0, 0, 0), D[0]-175, D[1]+10)  # Coordenadas alteradas
+        self.draw_text_quiz(questions[materia][materia_cont_perguntas[materia]][4], (0, 0, 0), D[0]-135, D[1]+10)  # Coordenadas alteradas
 
-       
+        if clicou_alternativa:
+            if questions[materia][materia_cont_perguntas[materia]][5] == 1:
+                self.alternativas_certas_erradas(self, A[0], A[1], alternativa_certa, 0.7, questions, 1)
+            else:
+                self.alternativas_certas_erradas(self, A[0], A[1], alternativa_errada, 0.7, questions, 1)
+            
+            if questions[materia][materia_cont_perguntas[materia]][5] == 2:
+                self.alternativas_certas_erradas(self, B[0], B[1], alternativa_certa, 0.7, questions, 2)
+            else:
+                self.alternativas_certas_erradas(self, B[0], B[1], alternativa_errada, 0.7, questions, 2)
+            
+            if questions[materia][materia_cont_perguntas[materia]][5] == 3:
+                self.alternativas_certas_erradas(self, C[0], C[1], alternativa_certa, 0.7, questions, 3)
+            else:
+                self.alternativas_certas_erradas(self, C[0], C[1], alternativa_errada, 0.7, questions, 3)
+            
+            if questions[materia][materia_cont_perguntas[materia]][5] == 4:
+                self.alternativas_certas_erradas(self, D[0], D[1], alternativa_certa, 0.7, questions, 4)
+            else:
+                self.alternativas_certas_erradas(self, D[0], D[1], alternativa_errada, 0.7, questions, 4)
+            
+            materia_cont_perguntas[materia] += 1
+
+            # pygame.time.delay(1250)
+
 
     def pontuacao(self):
         global points
@@ -176,6 +205,8 @@ class Quiz(pygame.sprite.Sprite):
 
     def update(self):
         global status_jogo, points, materia_cont_perguntas, materia_cont_rodadas
+
+        print(materia_cont_perguntas[materia])
 
         if materia_cont_perguntas[materia] - materia_cont_rodadas[materia]*10 == 10:
             materia_cont_rodadas[materia] += 1
@@ -191,9 +222,6 @@ def draw_text(text, color, x, y):
     global fonte_outline
     img = fonte.render(text, True, color)
     img_rect = img.get_rect(center=(x, y))
-    img_sombra = fonte_outline.render(text, True, (0,0,0))
-    img_rect_sombra = img.get_rect(center=(x, y))
-    tela.blit(img_sombra, img_rect_sombra)
     tela.blit(img, img_rect)
 
 # Inicializando o pygame
@@ -202,7 +230,9 @@ pygame.mixer.init()
 tela = pygame.display.set_mode((1200, 675))
 hit_sound = pygame.mixer.Sound('audios/hit.wav')
 som_acertou = pygame.mixer.Sound('audios/Som_acerto.mp3')
+som_acertou.set_volume(0)
 som_erro = pygame.mixer.Sound('audios/Som_erro.mp3')
+som_erro.set_volume(0)
 pygame.display.set_caption('Quiz')
 relogio = pygame.time.Clock()
 status_jogo = 'inicio'
@@ -211,14 +241,17 @@ materia = 0
 points = 0
 clicou = False
 fonte = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
-fonte_outline = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
 fonte2 = pygame.font.Font('font/Chalk Board.ttf',52)
+fonte_alternativa = pygame.font.Font('font/Chalk Board.ttf', 43)
 
 background_inicio = pygame.image.load('imagens/Tela_Inicial.jpg').convert()
 background_inicio = pygame.transform.scale(background_inicio, (1200, 675))
 background_quiz = pygame.image.load('imagens/Quiz.jpg').convert()
 background_quiz = pygame.transform.scale(background_quiz, (1200, 675))
 botao = pygame.image.load('imagens/botao_menu_transparente.png').convert_alpha()
+alternativa_botao = pygame.image.load('imagens/botao_alternativa.png').convert_alpha()
+alternativa_certa = pygame.image.load('imagens/botao_certo.png').convert_alpha()
+alternativa_errada = pygame.image.load('imagens/botao_errado.png').convert_alpha()
 
 botao_menu = Botao_menu(600, 380, botao, 0.93, 0)
 botao_voltar = Botao_menu(150, 600, botao, 0.7, 0)
@@ -272,7 +305,6 @@ while True:
     elif status_jogo == 'jogando':
         tela.blit(background_quiz, (0, 0))
         
-        print(materia)
         for materias in materia_cont_perguntas:
             if materia >= 50:
                 materia = 0
