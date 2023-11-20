@@ -196,7 +196,7 @@ class Quiz(pygame.sprite.Sprite):
             
             materia_cont_perguntas[materia] += 1
 
-            # pygame.time.delay(1250)
+            pygame.time.delay(1250)
 
 
     def pontuacao(self):
