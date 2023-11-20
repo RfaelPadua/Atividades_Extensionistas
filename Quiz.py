@@ -218,7 +218,7 @@ background_inicio = pygame.image.load('imagens/Tela_Inicial.jpg').convert()
 background_inicio = pygame.transform.scale(background_inicio, (1200, 675))
 background_quiz = pygame.image.load('imagens/Quiz.jpg').convert()
 background_quiz = pygame.transform.scale(background_quiz, (1200, 675))
-botao = pygame.image.load('imagens/botao_menu2.png').convert_alpha()
+botao = pygame.image.load('imagens/botao_menu_transparente.png').convert_alpha()
 
 botao_menu = Botao_menu(600, 380, botao, 0.93, 0)
 botao_voltar = Botao_menu(150, 600, botao, 0.7, 0)
