@@ -5,8 +5,8 @@ import time
 from Questoes import *
 
 
-materia_cont_perguntas = [0, 0]
-materia_cont_rodadas = [0, 0]
+materia_cont_perguntas = [0, 0, 0, 0]
+materia_cont_rodadas = [0, 0, 0, 0]
 points = 0
 
 # Classe para criar os botões do menu
@@ -206,7 +206,6 @@ class Quiz(pygame.sprite.Sprite):
     def update(self):
         global status_jogo, points, materia_cont_perguntas, materia_cont_rodadas
 
-        print(materia_cont_perguntas[materia])
 
         if materia_cont_perguntas[materia] - materia_cont_rodadas[materia]*10 == 10:
             materia_cont_rodadas[materia] += 1
@@ -230,9 +229,9 @@ pygame.mixer.init()
 tela = pygame.display.set_mode((1200, 675))
 hit_sound = pygame.mixer.Sound('audios/hit.wav')
 som_acertou = pygame.mixer.Sound('audios/Som_acerto.mp3')
-som_acertou.set_volume(0)
+# som_acertou.set_volume(0)
 som_erro = pygame.mixer.Sound('audios/Som_erro.mp3')
-som_erro.set_volume(0)
+# som_erro.set_volume(0)
 pygame.display.set_caption('Quiz')
 relogio = pygame.time.Clock()
 status_jogo = 'inicio'
@@ -255,8 +254,10 @@ alternativa_errada = pygame.image.load('imagens/botao_errado.png').convert_alpha
 
 botao_menu = Botao_menu(600, 380, botao, 0.93, 0)
 botao_voltar = Botao_menu(150, 600, botao, 0.7, 0)
-botao_matematica = Botao_menu(600, 380, botao, 0.93, 0)
-botao_geografia = Botao_menu(600, 485, botao, 0.93, 1)
+botao_matematica = Botao_menu(600, 280, botao, 0.93, 0)
+botao_geografia = Botao_menu(600, 385, botao, 0.93, 1)
+botao_ciencias = Botao_menu(600, 490, botao, 0.93, 2)
+
 
 while True:
     tela.fill((0, 0, 0))
@@ -293,12 +294,17 @@ while True:
             hit_sound.play()
             status_jogo = 'jogando'
             materia = 1
+        if botao_ciencias.draw(tela):
+            hit_sound.play()
+            status_jogo = 'jogando'
+            materia = 2
         if botao_voltar.draw(tela):
             hit_sound.play()
             status_jogo = 'inicio'
         
-        draw_text('Matemática', (0, 0, 0), 600, 380)
-        draw_text('Geografia', (0, 0, 0), 600, 485)
+        draw_text('Matemática', (0, 0, 0), 600, 280)
+        draw_text('Geografia', (0, 0, 0), 600, 385)
+        draw_text('Ciências', (0, 0, 0), 600, 490)
         draw_text('Voltar', (0, 0, 0), 150, 600)
         pygame.display.update()
     
