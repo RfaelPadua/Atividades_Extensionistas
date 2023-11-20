@@ -292,6 +292,3 @@ while True:
         draw_text('Voltar', (0, 0, 0), 150, 600)
         pygame.display.update()
     
-
-
-        
