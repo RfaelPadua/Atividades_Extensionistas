@@ -3,12 +3,12 @@ import sys
 import random
 import time
 from Questoes import *
+from os import path
 
 
 materia_cont_perguntas = [0, 0, 0, 0]
 materia_cont_rodadas = [0, 0, 0, 0]
 points = 0
-
 # Classe para criar os botões do menu
 class Botao_menu(pygame.sprite.Sprite):
     def __init__(self, x, y, image, scale, type):
@@ -60,7 +60,7 @@ class Quiz(pygame.sprite.Sprite):
 
 
     def pergunta(self):
-
+        
         palavras_pergunta = [palavra.split(' ') for palavra in questions[materia][materia_cont_perguntas[materia]][0].splitlines()]
         espaco = fonte2.size(' ')[0]
         x, y = 250,190
@@ -69,6 +69,7 @@ class Quiz(pygame.sprite.Sprite):
             for palavra in linha:
                 palavra_superficie = fonte2.render(palavra, True, (255, 255, 255))
                 palavra_largura, palavra_altura = palavra_superficie.get_size()
+                palavra_altura = 50
                 if x + palavra_largura >= 950:
                     x = 250
                     y += palavra_altura
@@ -196,7 +197,7 @@ class Quiz(pygame.sprite.Sprite):
             
             materia_cont_perguntas[materia] += 1
 
-            pygame.time.delay(1250)
+            pygame.time.delay(1500)
 
 
     def pontuacao(self):
@@ -207,10 +208,17 @@ class Quiz(pygame.sprite.Sprite):
         global status_jogo, points, materia_cont_perguntas, materia_cont_rodadas
 
 
+        
+        
+        if materia_cont_perguntas[materia] > 50:
+            materia_cont_perguntas[materia] = 0
+            materia_cont_rodadas[materia] = 0
+
         if materia_cont_perguntas[materia] - materia_cont_rodadas[materia]*10 == 10:
             materia_cont_rodadas[materia] += 1
             status_jogo = 'fim'
         
+        print(materia_cont_perguntas[materia])
         
         self.pergunta(self=Quiz)
         self.alternativa(self=Quiz)
@@ -222,6 +230,48 @@ def draw_text(text, color, x, y):
     img = fonte.render(text, True, color)
     img_rect = img.get_rect(center=(x, y))
     tela.blit(img, img_rect)
+
+def draw_text_placar_score(text, color, x, y):
+    global fonte
+    img = fonte.render(text, True, color)
+    img_rect = img.get_rect(midleft=(x, y))
+    tela.blit(img, img_rect)
+
+def draw_text_placar(text, color, x, y):
+    global fonte_placar
+    img = fonte_placar.render(text, True, color)
+    img_rect = img.get_rect(center=(x, y))
+    tela.blit(img, img_rect)
+
+def load_data(self):
+    global SCORE_MATEMATICA_FILE, SCORE_GEOGRAFIA_FILE, SCORE_CIENCIAS_FILE, score_matematica, score_geografia, score_ciencias
+    self.dir = path.dirname(__file__)
+    with open(SCORE_MATEMATICA_FILE, 'r') as f:
+        try:
+            score_matematica = f.read()
+        except:
+            score_matematica = 0
+    
+    with open(SCORE_GEOGRAFIA_FILE, 'r') as f:
+        try:
+            score_geografia = f.read()
+        except:
+            score_geografia = 0
+    
+    with open(SCORE_CIENCIAS_FILE, 'r') as f:
+        try:
+            score_ciencias = f.read()
+        except:
+            score_ciencias = 0
+
+def save_data(self, highscore, HS_FILE):
+    self.dir = path.dirname(__file__)
+    with open( HS_FILE, 'w') as f:
+        try:
+            f.write(highscore)
+        except:
+            f.write(str(0))
+
 
 # Inicializando o pygame
 pygame.init()
@@ -237,11 +287,22 @@ relogio = pygame.time.Clock()
 status_jogo = 'inicio'
 materia = 0
 
+SCORE_MATEMATICA_FILE = "matematica.txt"
+SCORE_GEOGRAFIA_FILE = "geografia.txt"
+SCORE_CIENCIAS_FILE = "ciencias.txt"
+score_matematica = []
+score_geografia = []
+score_ciencias = []
+
 points = 0
 clicou = False
 fonte = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
 fonte2 = pygame.font.Font('font/Chalk Board.ttf',52)
+fonte_placar = pygame.font.Font('font/Fonte_placar.TTF',52)
 fonte_alternativa = pygame.font.Font('font/Chalk Board.ttf', 43)
+
+background_placar = pygame.image.load('imagens/background.jpg').convert()
+background_placar = pygame.transform.scale(background_placar, (1200, 675))
 
 background_inicio = pygame.image.load('imagens/Tela_Inicial.jpg').convert()
 background_inicio = pygame.transform.scale(background_inicio, (1200, 675))
@@ -254,9 +315,11 @@ alternativa_errada = pygame.image.load('imagens/botao_errado.png').convert_alpha
 
 botao_menu = Botao_menu(600, 380, botao, 0.93, 0)
 botao_voltar = Botao_menu(150, 600, botao, 0.7, 0)
+botao_voltar_placar = Botao_menu(150, 635, botao, 0.7, 0)
 botao_matematica = Botao_menu(600, 280, botao, 0.93, 0)
 botao_geografia = Botao_menu(600, 385, botao, 0.93, 1)
 botao_ciencias = Botao_menu(600, 490, botao, 0.93, 2)
+botao_placar = Botao_menu(600, 500, botao, 0.93, 0)
 
 
 while True:
@@ -279,8 +342,12 @@ while True:
             hit_sound.play()
             status_jogo = 'menu'
 
+        if botao_placar.draw(tela):
+            hit_sound.play()
+            status_jogo = 'placar'       
 
         draw_text('Jogar', (0 ,0 , 0), 600, 380)
+        draw_text('Placar', (0 ,0 , 0), 600, 500)
         pygame.display.update()
         
     elif status_jogo == 'menu':
@@ -307,6 +374,41 @@ while True:
         draw_text('Ciências', (0, 0, 0), 600, 490)
         draw_text('Voltar', (0, 0, 0), 150, 600)
         pygame.display.update()
+
+    elif status_jogo == 'placar':
+        tela.blit(background_placar, (0, 0))
+
+        load_data(self=load_data)
+
+
+
+
+        draw_text_placar('PLACAR', (0, 0, 0), 600, 60)
+
+        score_matematica1 = score_matematica.split(', ')
+        score_geografia1 = score_geografia.split(', ')
+        score_ciencias1 = score_ciencias.split(', ')
+
+
+        if len(score_matematica) > 0:
+            for i in range(len(score_matematica1)):
+                draw_text_placar_score(f"{i+1}. " + score_matematica1[i], (0, 0, 0), 50, 200 + 50*i)
+        if len(score_geografia) > 0:
+            for i in range(len(score_geografia1)):
+                draw_text_placar_score(f"{i+1}. " + score_geografia1[i], (0, 0, 0), 450, 200 + 50*i)
+        if len(score_ciencias) > 0:
+            for i in range(len(score_ciencias1)):
+                draw_text_placar_score(f"{i+1}. " + score_ciencias1[i], (0, 0, 0), 850, 200 + 50*i)
+
+        if botao_voltar_placar.draw(tela):
+            hit_sound.play()
+            status_jogo = 'inicio'
+            points = 0
+        draw_text('Matemática', (0, 0, 0), 200, 125)
+        draw_text('Geografia', (0, 0, 0), 600, 125)
+        draw_text('Ciências', (0, 0, 0), 1000, 125)
+        draw_text('Voltar', (0, 0, 0), 145, 635)
+        pygame.display.update()
     
     elif status_jogo == 'jogando':
         tela.blit(background_quiz, (0, 0))
@@ -320,9 +422,42 @@ while True:
         
     elif status_jogo == 'fim':
         tela.blit(background_inicio, (0, 0))
-        draw_text('Fim de jogo', (0, 0, 0), 600, 380)
-        draw_text('Pontuação: ' + str(points), (0, 0, 0), 600, 485)
         
+        draw_text('Fim de jogo', (0, 0, 0), 600, 380)
+        draw_text('Pontuação: ' + str(points)+'/10', (0, 0, 0), 600, 485)
+
+
+        if materia == 0:
+            valores = []
+            if len(score_matematica) > 0:
+                for x in score_matematica1:
+                    valores.append(int(x))
+            valores.append(points)
+            valores.sort(reverse=True)
+            
+            save_data(save_data, str(valores).replace('[', '').replace(']', ''), SCORE_MATEMATICA_FILE)
+
+        
+        if materia == 1:
+            valores = []
+            if len(score_geografia) > 0:
+                for x in score_geografia1:
+                    valores.append(int(x))
+            valores.append(points)
+            valores.sort(reverse=True)
+            
+            save_data(save_data, str(valores).replace('[', '').replace(']', ''), SCORE_GEOGRAFIA_FILE)
+        
+        if materia == 2:
+            valores = []
+            if len(score_ciencias) > 0:
+                for x in score_ciencias1:
+                    valores.append(int(x))
+            valores.append(points)
+            valores.sort(reverse=True)
+            
+            save_data(save_data, str(valores).replace('[', '').replace(']', ''), SCORE_CIENCIAS_FILE)
+
         if botao_voltar.draw(tela):
             hit_sound.play()
             status_jogo = 'inicio'
