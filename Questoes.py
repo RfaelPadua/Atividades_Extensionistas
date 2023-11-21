@@ -93,7 +93,7 @@ questao = [
         [" O leite é adquirido de qual atividade?","Extrativismo.","Pecuária.", "Agricultura.","Horticultura.",2],
         ["Onde se localiza a maior parte da água do nosso Planeta?","Rios.","Oceanos.", "Geleiras.","Lagoas.",2],
         ["No ciclo hidrológico, a água circula em quais estados físicos?","Líquido, gasoso e sólido.","Sólido, congelado e líquido.", "Sólido e líquido.","Gasoso, vapor e líquido.",3],
-        ["Os mapas podem representar muitos aspectos de nosso dia a dia e de nossas vidas. Através deles organizamos diferentes espaços e representamos coisas materiais ou imateriais. Qual dos instrumentos abaixo não é utilizado para desenhar um mapa?", "Compasso.", "Ampulheta.", "Esquadro.", "Régua.",1 ],
+        ["Os mapas podem representar muitos aspectos de nosso dia a dia e de nossas vidas. Qual dos instrumentos abaixo não é utilizado para desenhar um mapa?", "Compasso.", "Ampulheta.", "Esquadro.", "Régua.",1 ],
         ["O mapa é uma representação gráfica e métrica de uma porção de território sobre uma superfície. Como se chama a ciência que estuda e elabora os mapas?", "Geografia", "Cartografia", "Iconografia", "Estatística", 1],
         ["Qual dos conceitos abaixo não faz parte da linguagem cartográfica?", "Símbolos", "Legenda", "Cursos de água", "Escala", 3],
         ["Todos os dias de nossas vidas, necessitamos organizar e nos orientar pelo espaço no qual vivemos, seja na escola, no trabalho ou nas ruas de nossa cidade. Qual dos itens abaixo é um instrumento de localização?", "Cronômetro", "Compasso", "Relógio", "Bússola", 4],

@@ -228,7 +228,6 @@ class Quiz(pygame.sprite.Sprite):
             status_jogo = 'fim'
 
         
-        print(materia_cont_perguntas[materia])
         
         self.pergunta(self=Quiz)
         self.alternativa(self=Quiz)
