@@ -1,14 +1,20 @@
 import pygame
 import sys
-import random
-import time
+from random import shuffle
 from Questoes import *
 from os import path
+
+questions = questao
+shuffle(questions[0])
+shuffle(questions[1])
+shuffle(questions[2])
 
 
 materia_cont_perguntas = [0, 0, 0, 0]
 materia_cont_rodadas = [0, 0, 0, 0]
 points = 0
+materia = 0
+
 # Classe para criar os botões do menu
 class Botao_menu(pygame.sprite.Sprite):
     def __init__(self, x, y, image, scale, type):
@@ -45,7 +51,10 @@ class Botao_menu(pygame.sprite.Sprite):
 
 # Classe para criar os botões das respostas
 class Quiz(pygame.sprite.Sprite):
-    global questions, materia_cont_perguntas, materia_cont_rodadas
+    global questions, materia_cont_perguntas, materia_cont_rodadas, materia
+
+    
+
 
     def __init__(self):
         super().__init__()
@@ -206,17 +215,18 @@ class Quiz(pygame.sprite.Sprite):
 
     def update(self):
         global status_jogo, points, materia_cont_perguntas, materia_cont_rodadas
-
-
+        
         
         
         if materia_cont_perguntas[materia] > 50:
             materia_cont_perguntas[materia] = 0
             materia_cont_rodadas[materia] = 0
+            shuffle(questions[materia])
 
         if materia_cont_perguntas[materia] - materia_cont_rodadas[materia]*10 == 10:
             materia_cont_rodadas[materia] += 1
             status_jogo = 'fim'
+
         
         print(materia_cont_perguntas[materia])
         
@@ -277,6 +287,11 @@ def save_data(self, highscore, HS_FILE):
 pygame.init()
 pygame.mixer.init()
 tela = pygame.display.set_mode((1200, 675))
+pygame.mixer.music.load('audios/Quiz_Background_Music.mp3')
+pygame.mixer.music.set_volume(0.4)
+pygame.mixer.music.play(-1)
+
+
 hit_sound = pygame.mixer.Sound('audios/hit.wav')
 som_acertou = pygame.mixer.Sound('audios/Som_acerto.mp3')
 # som_acertou.set_volume(0)
@@ -285,7 +300,7 @@ som_erro = pygame.mixer.Sound('audios/Som_erro.mp3')
 pygame.display.set_caption('Quiz')
 relogio = pygame.time.Clock()
 status_jogo = 'inicio'
-materia = 0
+
 
 SCORE_MATEMATICA_FILE = "matematica.txt"
 SCORE_GEOGRAFIA_FILE = "geografia.txt"
@@ -298,7 +313,7 @@ points = 0
 clicou = False
 fonte = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
 fonte2 = pygame.font.Font('font/Chalk Board.ttf',52)
-fonte_placar = pygame.font.Font('font/Fonte_placar.TTF',52)
+fonte_placar = pygame.font.Font('font/Fonte_placar.TTF',47)
 fonte_alternativa = pygame.font.Font('font/Chalk Board.ttf', 43)
 
 background_placar = pygame.image.load('imagens/background.jpg').convert()
@@ -333,6 +348,9 @@ while True:
             clicou = True
         if event.type == pygame.MOUSEBUTTONUP:
             clicou = False
+        
+    
+    
 
 
     if status_jogo == 'inicio':
@@ -392,13 +410,16 @@ while True:
 
         if len(score_matematica) > 0:
             for i in range(len(score_matematica1)):
-                draw_text_placar_score(f"{i+1}. " + score_matematica1[i], (0, 0, 0), 50, 200 + 50*i)
+                draw_text_placar_score(f"{i+1}- ",(0, 0, 0), 50, 200 + 50*i)
+                draw_text_placar(score_matematica1[i], (0, 0, 0), 150, 200 + 50*i)
         if len(score_geografia) > 0:
             for i in range(len(score_geografia1)):
-                draw_text_placar_score(f"{i+1}. " + score_geografia1[i], (0, 0, 0), 450, 200 + 50*i)
+                draw_text_placar_score(f"{i+1}- ",(0, 0, 0), 500, 200 + 50*i)
+                draw_text_placar(score_geografia1[i], (0, 0, 0), 600, 200 + 50*i)
         if len(score_ciencias) > 0:
             for i in range(len(score_ciencias1)):
-                draw_text_placar_score(f"{i+1}. " + score_ciencias1[i], (0, 0, 0), 850, 200 + 50*i)
+                draw_text_placar_score(f"{i+1}- ",(0, 0, 0), 850, 200 + 50*i)
+                draw_text_placar(score_ciencias1[i], (0, 0, 0), 950, 200 + 50*i)
 
         if botao_voltar_placar.draw(tela):
             hit_sound.play()
