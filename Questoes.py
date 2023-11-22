@@ -49,7 +49,7 @@ questao = [
         ["Preencha o número que falta na operação: 5 x _ = 30 ?", "10", "2", "1", "6",4],
         ["Qualquer número multiplicado por ? sempre resulta nele mesmo.?", "4", "0", "1", "3",3],
         ["Qualquer número multiplicado por ? sempre resulta em zero?", "3", "1", "0", "10",3],
-        ["Quantas casas decimais existem no número 144?", "1", "2", "3", "4",3],
+        ["Quantas casas decimais existem no número 0,144?", "1", "2", "3", "4",3],
         ["Tenho 20 reais e quero comprar um chocolate de 4 reais para 3 amigos, quanto sobra?", "8", "4", "2", "6",1],
         ["Qual o nome da operação em que se reparte uma quantidade em porções menores iguais?", "Divisão", "Adição", "Multiplicação", "Subtração",1]],
         

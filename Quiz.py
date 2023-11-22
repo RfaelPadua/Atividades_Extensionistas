@@ -211,7 +211,7 @@ class Quiz(pygame.sprite.Sprite):
             
             materia_cont_perguntas[materia] += 1
 
-            pygame.time.delay(1500)
+            # pygame.time.delay(1500)
 
 
     def pontuacao(self):
@@ -254,17 +254,16 @@ class Data():
                 score = json.load(f)
                 return score
     
-    def sort_score(self, score):  
-        i = 0
-        while i < len(score)-1:
-            if score[i][1] < score[i+1][1]:
-                aux = score[i]
-                score[i] = score[i+1]
-                score[i+1] = aux
-                i = 0
-            else:  
-                i += 1
+    def sort_score(self, score):
+        if len(score) > 0:
+
+                score.sort(key=lambda x: x[1], reverse=True)
+
+                if len(score) > 5:
+                    score.pop()
+                
         return score
+
         
 def draw_text(text, color, x, y):
     global fonte_outline
@@ -344,8 +343,8 @@ alternativa_certa = pygame.image.load('imagens/botao_certo.png').convert_alpha()
 alternativa_errada = pygame.image.load('imagens/botao_errado.png').convert_alpha()
 
 botao_menu = Botao_menu(600, 380, botao, 0.93, 0)
-botao_voltar = Botao_menu(150, 600, botao, 0.7, 0)
-botao_voltar_placar = Botao_menu(150, 635, botao, 0.7, 0)
+botao_voltar = Botao_menu(175, 610, botao, 0.7, 0)
+botao_voltar_placar = Botao_menu(175, 610, botao, 0.7, 0)
 botao_matematica = Botao_menu(600, 280, botao, 0.93, 0)
 botao_geografia = Botao_menu(600, 385, botao, 0.93, 1)
 botao_ciencias = Botao_menu(600, 490, botao, 0.93, 2)
@@ -416,39 +415,37 @@ while True:
         draw_text('Matemática', (0, 0, 0), 600, 280)
         draw_text('Geografia', (0, 0, 0), 600, 385)
         draw_text('Ciências', (0, 0, 0), 600, 490)
-        draw_text('Voltar', (0, 0, 0), 150, 600)
+        draw_text('Voltar', (0, 0, 0), 175, 608)
         pygame.display.update()
 
     elif status_jogo == 'placar':
         tela.blit(background_placar, (0, 0))
-        draw_text_placar('Placar', (139,0,0), 600, 50)
+        draw_text_placar('Placar', (139,0,0), 600, 80)
         
-
-
         if len(score[0]) > 0:
             for i in range(len(score[0])):
-                draw_text_placar_score(f'{i+1}º {score[0][i][0]}', (0, 0, 0), 50, 200 + 50*i)
-                draw_text_placar_score(f'{score[0][i][1]}', (0, 0, 0), 350, 200 + 50*i)
+                draw_text_placar_score(f'{i+1}º {score[0][i][0]}', (0, 0, 0), 35, 245 + 50*i)
+                draw_text_placar_score(f'{score[0][i][1]}', (0, 0, 0), 330, 245 + 50*i)
         
         if len(score[1]) > 0:
             for i in range(len(score[1])):
-                draw_text_placar_score(f'{i+1}º {score[1][i][0]}', (0, 0, 0), 450, 200 + 50*i)
-                draw_text_placar_score(f'{score[1][i][1]}', (0, 0, 0), 750, 200 + 50*i)
+                draw_text_placar_score(f'{i+1}º {score[1][i][0]}', (0, 0, 0), 435, 245 + 50*i)
+                draw_text_placar_score(f'{score[1][i][1]}', (0, 0, 0), 730, 245 + 50*i)
         if len(score[2]) > 0:
             for i in range(len(score[2])):
-                draw_text_placar_score(f'{i+1}º {score[2][i][0]}', (0, 0, 0), 850, 200 + 50*i)
-                draw_text_placar_score(f'{score[2][i][1]}', (0, 0, 0), 1150, 200 + 50*i)
+                draw_text_placar_score(f'{i+1}º {score[2][i][0]}', (0, 0, 0), 835, 245 + 50*i)
+                draw_text_placar_score(f'{score[2][i][1]}', (0, 0, 0), 1130, 245 + 50*i)
 
 
 
-        if botao_voltar_placar.draw(tela):
+        if botao_voltar.draw(tela)and status_jogo == 'placar':
             hit_sound.play()
             status_jogo = 'inicio'
             points = 0
-        draw_text('Matemática', (0, 0, 0), 200, 125)
-        draw_text('Geografia', (0, 0, 0), 600, 125)
-        draw_text('Ciências', (0, 0, 0), 1000, 125)
-        draw_text('Voltar', (0, 0, 0), 145, 635)
+        draw_text('Matemática', (0, 0, 0), 200, 170)
+        draw_text('Geografia', (0, 0, 0), 600, 170)
+        draw_text('Ciências', (0, 0, 0), 1000, 170)
+        draw_text('Voltar', (0, 0, 0), 175, 608)
         pygame.display.update()
     
     elif status_jogo == 'jogando':
@@ -478,28 +475,23 @@ while True:
 
 
 
-        if botao_voltar.draw(tela) or enter == True:
+        if (botao_voltar.draw(tela) or enter == True) and len(user_name) > 0:
             hit_sound.play()
 
             
             score[materia].append([user_name, points])
 
 
-            if len(score[materia]) > 0:
-                score_aux = Data.sort_score(self=Data.sort_score, score=score[materia])
+            score[materia] = Data.sort_score(self=Data.sort_score, score=score[materia])
 
-                if len(score_aux) > 5:
-                    score_aux.pop()
-                
-                score[materia] = score_aux
-
+            
             Data.save(self=Data, score=score, HS_FILE='score.json')
             points = 0
             user_name = ''
             status_jogo = 'inicio'
             
             
-
+        
         draw_text('Voltar', (0, 0, 0), 150, 600)
         pygame.display.update()
 
