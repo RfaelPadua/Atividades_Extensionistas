@@ -1,19 +1,25 @@
 import pygame
 import sys
+import json
 from random import shuffle
 from Questoes import *
 from os import path
+
 
 questions = questao
 shuffle(questions[0])
 shuffle(questions[1])
 shuffle(questions[2])
+enter = False
 
 
 materia_cont_perguntas = [0, 0, 0, 0]
 materia_cont_rodadas = [0, 0, 0, 0]
 points = 0
 materia = 0
+user_name = ''
+
+
 
 # Classe para criar os botões do menu
 class Botao_menu(pygame.sprite.Sprite):
@@ -37,7 +43,6 @@ class Botao_menu(pygame.sprite.Sprite):
             if clicou and self.clicked == False:
                 self.clicked = True
                 action = True
-                materia = type
                 clicou = False
                 pygame.time.delay(100)
 
@@ -233,7 +238,34 @@ class Quiz(pygame.sprite.Sprite):
         self.alternativa(self=Quiz)
         self.pontuacao(self=Quiz)
 
-
+class Data():
+    def __init__(self):
+        super().__init__()
+    
+    def save(self, score, HS_FILE):
+        try:
+            with open(HS_FILE, 'w') as f:
+                json.dump(score, f)
+        except:
+            return 0
+    
+    def load(self, HS_FILE):
+            with open(HS_FILE, 'r') as f:
+                score = json.load(f)
+                return score
+    
+    def sort_score(self, score):  
+        i = 0
+        while i < len(score)-1:
+            if score[i][1] < score[i+1][1]:
+                aux = score[i]
+                score[i] = score[i+1]
+                score[i+1] = aux
+                i = 0
+            else:  
+                i += 1
+        return score
+        
 def draw_text(text, color, x, y):
     global fonte_outline
     img = fonte.render(text, True, color)
@@ -241,8 +273,8 @@ def draw_text(text, color, x, y):
     tela.blit(img, img_rect)
 
 def draw_text_placar_score(text, color, x, y):
-    global fonte
-    img = fonte.render(text, True, color)
+    global fonte_ranking
+    img = fonte_ranking.render(text, True, color)
     img_rect = img.get_rect(midleft=(x, y))
     tela.blit(img, img_rect)
 
@@ -252,34 +284,8 @@ def draw_text_placar(text, color, x, y):
     img_rect = img.get_rect(center=(x, y))
     tela.blit(img, img_rect)
 
-def load_data(self):
-    global SCORE_MATEMATICA_FILE, SCORE_GEOGRAFIA_FILE, SCORE_CIENCIAS_FILE, score_matematica, score_geografia, score_ciencias
-    self.dir = path.dirname(__file__)
-    with open(SCORE_MATEMATICA_FILE, 'r') as f:
-        try:
-            score_matematica = f.read()
-        except:
-            score_matematica = 0
-    
-    with open(SCORE_GEOGRAFIA_FILE, 'r') as f:
-        try:
-            score_geografia = f.read()
-        except:
-            score_geografia = 0
-    
-    with open(SCORE_CIENCIAS_FILE, 'r') as f:
-        try:
-            score_ciencias = f.read()
-        except:
-            score_ciencias = 0
 
-def save_data(self, highscore, HS_FILE):
-    self.dir = path.dirname(__file__)
-    with open( HS_FILE, 'w') as f:
-        try:
-            f.write(highscore)
-        except:
-            f.write(str(0))
+
 
 
 # Inicializando o pygame
@@ -301,18 +307,28 @@ relogio = pygame.time.Clock()
 status_jogo = 'inicio'
 
 
-SCORE_MATEMATICA_FILE = "matematica.txt"
-SCORE_GEOGRAFIA_FILE = "geografia.txt"
-SCORE_CIENCIAS_FILE = "ciencias.txt"
-score_matematica = []
-score_geografia = []
-score_ciencias = []
+
+
+try:
+    score = Data.load(self=Data, HS_FILE='score.json')
+except:
+    score = [[['', 0]], [['', 0]], [['', 0]]]
+
+# score[0].append(['Rafael', 2])
+
+
+# print(score[0])
+
+
+
+
 
 points = 0
 clicou = False
 fonte = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
+fonte_ranking = pygame.font.Font('font/Silkscreen-Regular.ttf', 35)
 fonte2 = pygame.font.Font('font/Chalk Board.ttf',52)
-fonte_placar = pygame.font.Font('font/Fonte_placar.TTF',47)
+fonte_placar = pygame.font.Font('font/Fonte_placar.TTF', 47)
 fonte_alternativa = pygame.font.Font('font/Chalk Board.ttf', 43)
 
 background_placar = pygame.image.load('imagens/background.jpg').convert()
@@ -335,10 +351,15 @@ botao_geografia = Botao_menu(600, 385, botao, 0.93, 1)
 botao_ciencias = Botao_menu(600, 490, botao, 0.93, 2)
 botao_placar = Botao_menu(600, 500, botao, 0.93, 0)
 
+botao_nome = pygame.transform.scale(botao, (340, 80))
+input_rect = botao_nome.get_rect(center = (600, 380))
+
+largura, altura = botao.get_size()
+
+
 
 while True:
     tela.fill((0, 0, 0))
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -348,8 +369,14 @@ while True:
         if event.type == pygame.MOUSEBUTTONUP:
             clicou = False
         
-    
-    
+        if status_jogo == 'fim':
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    user_name = user_name[:-1]
+                elif event.key == pygame.K_RETURN:
+                    enter = True
+                elif len(user_name) < 9 and event.key != pygame.K_TAB:
+                    user_name += event.unicode
 
 
     if status_jogo == 'inicio':
@@ -394,31 +421,17 @@ while True:
 
     elif status_jogo == 'placar':
         tela.blit(background_placar, (0, 0))
+        draw_text_placar('Placar', (139,0,0), 600, 50)
+        if len(score) > 0:
+            for i in range(len(score[0])):
+                draw_text_placar_score(f'{i+1}º {score[0][i][0]} {score[0][i][1]}', (0, 0, 0), 50, 200 + 50*i)
+            
+            for i in range(len(score[1])):
+                draw_text_placar_score(f'{i+1}º {score[1][i][0]} {score[1][i][1]}', (0, 0, 0), 450, 200 + 50*i)
+            
+            for i in range(len(score[2])):
+                draw_text_placar_score(f'{i+1}º {score[2][i][0]} {score[2][i][1]}', (0, 0, 0), 850, 200 + 50*i)
 
-        load_data(self=load_data)
-
-
-
-
-        draw_text_placar('PLACAR', (0, 0, 0), 600, 60)
-
-        score_matematica1 = score_matematica.split(', ')
-        score_geografia1 = score_geografia.split(', ')
-        score_ciencias1 = score_ciencias.split(', ')
-
-
-        if len(score_matematica) > 0:
-            for i in range(len(score_matematica1)):
-                draw_text_placar_score(f"{i+1}- ",(0, 0, 0), 50, 200 + 50*i)
-                draw_text_placar(score_matematica1[i], (0, 0, 0), 150, 200 + 50*i)
-        if len(score_geografia) > 0:
-            for i in range(len(score_geografia1)):
-                draw_text_placar_score(f"{i+1}- ",(0, 0, 0), 500, 200 + 50*i)
-                draw_text_placar(score_geografia1[i], (0, 0, 0), 600, 200 + 50*i)
-        if len(score_ciencias) > 0:
-            for i in range(len(score_ciencias1)):
-                draw_text_placar_score(f"{i+1}- ",(0, 0, 0), 850, 200 + 50*i)
-                draw_text_placar(score_ciencias1[i], (0, 0, 0), 950, 200 + 50*i)
 
         if botao_voltar_placar.draw(tela):
             hit_sound.play()
@@ -441,47 +454,43 @@ while True:
         pygame.display.update()
         
     elif status_jogo == 'fim':
+
         tela.blit(background_inicio, (0, 0))
+
         
-        draw_text('Fim de jogo', (0, 0, 0), 600, 380)
+        
+        text_surface = fonte.render(user_name, True, (0, 0, 0))
+        tela.blit(botao_nome, input_rect)
+        tela.blit(text_surface, input_rect.move(20, 10))
+
+        
+        draw_text('Fim de jogo', (0, 0, 0), 600, 200)
+        draw_text('Escreva seu nome:', (0, 0, 0), 600, 300)
         draw_text('Pontuação: ' + str(points)+'/10', (0, 0, 0), 600, 485)
 
 
-        if materia == 0:
-            valores = []
-            if len(score_matematica) > 0:
-                for x in score_matematica1:
-                    valores.append(int(x))
-            valores.append(points)
-            valores.sort(reverse=True)
-            
-            save_data(save_data, str(valores).replace('[', '').replace(']', ''), SCORE_MATEMATICA_FILE)
 
-        
-        if materia == 1:
-            valores = []
-            if len(score_geografia) > 0:
-                for x in score_geografia1:
-                    valores.append(int(x))
-            valores.append(points)
-            valores.sort(reverse=True)
-            
-            save_data(save_data, str(valores).replace('[', '').replace(']', ''), SCORE_GEOGRAFIA_FILE)
-        
-        if materia == 2:
-            valores = []
-            if len(score_ciencias) > 0:
-                for x in score_ciencias1:
-                    valores.append(int(x))
-            valores.append(points)
-            valores.sort(reverse=True)
-            
-            save_data(save_data, str(valores).replace('[', '').replace(']', ''), SCORE_CIENCIAS_FILE)
-
-        if botao_voltar.draw(tela):
+        if botao_voltar.draw(tela) or enter == True:
             hit_sound.play()
+            print(materia)
+            score[materia].append([user_name, points])
+            
+            score_aux = Data.sort_score(self=Data.sort_score, score=score[materia])
+
+            if len(score_aux ) > 5:
+                score_aux.pop()
+            score[materia] = score_aux
+            Data.save(self=Data, score=score, HS_FILE='score.json')
             status_jogo = 'inicio'
             points = 0
+            
+
         draw_text('Voltar', (0, 0, 0), 150, 600)
         pygame.display.update()
+
+    
+    pygame.display.update()
+    relogio.tick(60)
+    
+
     
