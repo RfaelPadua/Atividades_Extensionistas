@@ -312,12 +312,12 @@ status_jogo = 'inicio'
 try:
     score = Data.load(self=Data, HS_FILE='score.json')
 except:
-    score = [[['', 0]], [['', 0]], [['', 0]]]
-
-# score[0].append(['Rafael', 2])
+    score = [[], [], []]
 
 
-# print(score[0])
+
+
+
 
 
 
@@ -422,15 +422,23 @@ while True:
     elif status_jogo == 'placar':
         tela.blit(background_placar, (0, 0))
         draw_text_placar('Placar', (139,0,0), 600, 50)
-        if len(score) > 0:
+        
+
+
+        if len(score[0]) > 0:
             for i in range(len(score[0])):
-                draw_text_placar_score(f'{i+1}º {score[0][i][0]} {score[0][i][1]}', (0, 0, 0), 50, 200 + 50*i)
-            
+                draw_text_placar_score(f'{i+1}º {score[0][i][0]}', (0, 0, 0), 50, 200 + 50*i)
+                draw_text_placar_score(f'{score[0][i][1]}', (0, 0, 0), 350, 200 + 50*i)
+        
+        if len(score[1]) > 0:
             for i in range(len(score[1])):
-                draw_text_placar_score(f'{i+1}º {score[1][i][0]} {score[1][i][1]}', (0, 0, 0), 450, 200 + 50*i)
-            
+                draw_text_placar_score(f'{i+1}º {score[1][i][0]}', (0, 0, 0), 450, 200 + 50*i)
+                draw_text_placar_score(f'{score[1][i][1]}', (0, 0, 0), 750, 200 + 50*i)
+        if len(score[2]) > 0:
             for i in range(len(score[2])):
-                draw_text_placar_score(f'{i+1}º {score[2][i][0]} {score[2][i][1]}', (0, 0, 0), 850, 200 + 50*i)
+                draw_text_placar_score(f'{i+1}º {score[2][i][0]}', (0, 0, 0), 850, 200 + 50*i)
+                draw_text_placar_score(f'{score[2][i][1]}', (0, 0, 0), 1150, 200 + 50*i)
+
 
 
         if botao_voltar_placar.draw(tela):
@@ -472,17 +480,24 @@ while True:
 
         if botao_voltar.draw(tela) or enter == True:
             hit_sound.play()
-            print(materia)
-            score[materia].append([user_name, points])
-            
-            score_aux = Data.sort_score(self=Data.sort_score, score=score[materia])
 
-            if len(score_aux ) > 5:
-                score_aux.pop()
-            score[materia] = score_aux
+            
+            score[materia].append([user_name, points])
+
+
+            if len(score[materia]) > 0:
+                score_aux = Data.sort_score(self=Data.sort_score, score=score[materia])
+
+                if len(score_aux) > 5:
+                    score_aux.pop()
+                
+                score[materia] = score_aux
+
             Data.save(self=Data, score=score, HS_FILE='score.json')
-            status_jogo = 'inicio'
             points = 0
+            user_name = ''
+            status_jogo = 'inicio'
+            
             
 
         draw_text('Voltar', (0, 0, 0), 150, 600)
