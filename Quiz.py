@@ -465,8 +465,14 @@ while True:
         
         
         text_surface = fonte.render(user_name, True, (0, 0, 0))
+        text_surface2 = fonte.render(user_name + '|', True, (0, 0, 0))
         tela.blit(botao_nome, input_rect)
-        tela.blit(text_surface, input_rect.move(20, 10))
+        ticks = 0
+        ticks += pygame.time.get_ticks()
+        if int(ticks/600) % 2 == 0:
+            tela.blit(text_surface , input_rect.move(20, 7))
+        else:
+            tela.blit(text_surface2, input_rect.move(20, 7))
 
         
         draw_text('Fim de jogo', (0, 0, 0), 600, 200)
