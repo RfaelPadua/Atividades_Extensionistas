@@ -325,12 +325,12 @@ except:
 points = 0
 clicou = False
 fonte = pygame.font.Font('font/Silkscreen-Regular.ttf', 48)
-fonte_ranking = pygame.font.Font('font/Silkscreen-Regular.ttf', 35)
+fonte_ranking = pygame.font.Font('font/Chalk Board.ttf', 35)
 fonte2 = pygame.font.Font('font/Chalk Board.ttf',52)
 fonte_placar = pygame.font.Font('font/Fonte_placar.TTF', 47)
 fonte_alternativa = pygame.font.Font('font/Chalk Board.ttf', 43)
 
-background_placar = pygame.image.load('imagens/background.jpg').convert()
+background_placar = pygame.image.load('imagens/Placar_background.png').convert()
 background_placar = pygame.transform.scale(background_placar, (1200, 675))
 
 background_inicio = pygame.image.load('imagens/Tela_Inicial.jpg').convert()
@@ -420,31 +420,66 @@ while True:
 
     elif status_jogo == 'placar':
         tela.blit(background_placar, (0, 0))
-        draw_text_placar('Placar', (139,0,0), 600, 80)
+
         
         if len(score[0]) > 0:
             for i in range(len(score[0])):
-                draw_text_placar_score(f'{i+1}º {score[0][i][0]}', (0, 0, 0), 35, 245 + 50*i)
-                draw_text_placar_score(f'{score[0][i][1]}', (0, 0, 0), 330, 245 + 50*i)
+                draw_text_placar_score(f'{i+1}º- ', (255,255,255), 110, 335 + 40*i)
+                score[0][i][0] = score[0][i][0].upper()
+                nome = list(score[0][i][0])
+                x = 145
+                for letra in nome:
+                    letra_surface = fonte_ranking.render(letra, True, (255, 255, 255))
+                    letra_largura, letra_altura = letra_surface.get_size()
+
+                    if letra_largura + x < 350:
+                            
+                        draw_text_placar_score(letra, (255, 255, 255), x, 335 + 40*i)
+                        x += letra_largura
+
+                            
+                draw_text_placar_score(f'{score[0][i][1]}', (255,255,255), 350, 335 + 40*i)
         
         if len(score[1]) > 0:
             for i in range(len(score[1])):
-                draw_text_placar_score(f'{i+1}º {score[1][i][0]}', (0, 0, 0), 435, 245 + 50*i)
-                draw_text_placar_score(f'{score[1][i][1]}', (0, 0, 0), 730, 245 + 50*i)
+                draw_text_placar_score(f'{i+1}º- ', (255,255,255), 475, 335 + 40*i)
+                score[1][i][0] = score[1][i][0].upper()
+                nome = list(score[1][i][0])
+                x = 510
+                for letra in nome:
+                    letra_surface = fonte_ranking.render(letra, True, (255, 255, 255))
+                    letra_largura, letra_altura = letra_surface.get_size()
+
+                    if letra_largura + x < 715:
+                            
+                        draw_text_placar_score(letra, (255, 255, 255), x, 335 + 40*i)
+                        x += letra_largura
+                   
+                            
+                draw_text_placar_score(f'{score[1][i][1]}', (255,255,255), 715, 335 + 40*i)
+        
         if len(score[2]) > 0:
             for i in range(len(score[2])):
-                draw_text_placar_score(f'{i+1}º {score[2][i][0]}', (0, 0, 0), 835, 245 + 50*i)
-                draw_text_placar_score(f'{score[2][i][1]}', (0, 0, 0), 1130, 245 + 50*i)
+                draw_text_placar_score(f'{i+1}º- ', (255,255,255), 840, 335 + 40*i)
+                score[2][i][0] = score[2][i][0].upper()
+                nome = list(score[2][i][0])
+                x = 875
+                for letra in nome:
+                    letra_surface = fonte_ranking.render(letra, True, (255, 255, 255))
+                    letra_largura, letra_altura = letra_surface.get_size()
 
-
+                    if letra_largura + x < 1080:
+                            
+                        draw_text_placar_score(letra, (255, 255, 255), x, 335 + 40*i)
+                        x += letra_largura
+                            
+                draw_text_placar_score(f'{score[2][i][1]}', (255,255,255), 1080, 335 + 40*i)
+ 
 
         if botao_voltar.draw(tela)and status_jogo == 'placar':
             hit_sound.play()
             status_jogo = 'inicio'
             points = 0
-        draw_text('Matemática', (0, 0, 0), 200, 170)
-        draw_text('Geografia', (0, 0, 0), 600, 170)
-        draw_text('Ciências', (0, 0, 0), 1000, 170)
         draw_text('Voltar', (0, 0, 0), 175, 608)
         pygame.display.update()
     
