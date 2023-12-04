@@ -1,4 +1,3 @@
-
 questao = [
     [
         ["Qual o número entre 22 e 24 ?", "28", "23", "46", "22",2],
@@ -52,7 +51,6 @@ questao = [
         ["Quantas casas decimais existem no número 0,144?", "1", "2", "3", "4",3],
         ["Tenho 20 reais e quero comprar um chocolate de 4 reais para 3 amigos, quanto sobra?", "8", "4", "2", "6",1],
         ["Qual o nome da operação em que se reparte uma quantidade em porções menores iguais?", "Divisão", "Adição", "Multiplicação", "Subtração",1]],
-        
     [
         ["Qual é a capital do Brasil?", "Rio de Janeiro", "São Paulo", "Brasília", "Belo Horizonte", 3],
         ["Em qual continente fica o Brasil?", "América do Norte", "América do Sul", "África", "Europa", 2],
@@ -63,25 +61,25 @@ questao = [
         ["Em que país está localizado o Taj Mahal?", "Índia", "China", "Egito", "Turquia", 1],
         ["Qual é a cidade mais populosa do mundo?", "Tóquio", "Nova Delhi", "Xangai", "Cidade do México", 1],
         ["Em que continente está localizado o Deserto do Saara?", "África", "Ásia", "América do Sul", "Austrália", 1],
-        ["Qual é a capital do Canadá?", "Toronto", "Ottawa", "Vancouver", "Montreal", 2],
+        ["Qual é o meio de transporte rodoviário? ", "Navio", "Carro", "Canoa", "Canoa", 2],
         ["Quais são os dois países mais extensos do mundo em termos de território?", "Rússia e Canadá", "China e Estados Unidos", "Brasil e Índia", "Austrália e Argentina", 1],
         ["Em que oceano está localizado o Triângulo das Bermudas?", "Atlântico Norte", "Pacífico Sul", "Índico", "Ártico", 1],
         ["Qual é a capital da Turquia?", "Istambul", "Ancara", "Izmir", "Anatólia", 2],
         ["Em que continente está localizado o Polo Sul?", "Antártida", "África", "Oceania", "Europa", 1],
-        ["Qual é o maior rio da Europa?", "Danúbio", "Reno", "Volga", "Tamisa", 3],
-        ["Em que país se encontra a cidade de Marrakech?", "Egito", "Marrocos", "Tunísia", "Argélia", 2],
+        ["Qual é o nosso astro rei, que emite luz, calor próprio e aquece a Terra? ", "Sol", "Lua", "Júpiter", "Estrela", 1],
+        ["Em qual estação do ano vivemos o frio", "Verão", "Inverno", "Outono", "Primavera", 2],
         ["Qual é o país mais populoso do mundo?", "China", "Índia", "Estados Unidos", "Brasil", 1],
         ["Em que oceano está localizado o Arquipélago do Havaí?", "Atlântico", "Pacífico", "Índico", "Ártico", 2],
         ["Em que cordilheira está localizado o Monte Everest?", "Himalaias", "Andes", "Alpes", "Cordilheira dos Apalaches", 1],
         ["Qual é o deserto mais seco do mundo?", "Saara", "Atacama", "Gobi", "Karakum", 2],
         ["Em que país está localizado o Rio Nilo?", "Nigéria", "Quênia", "Etiópia", "Egito", 4],
-        ["Qual é a capital da Austrália?", "Sydney", "Melbourne", "Canberra", "Brisbane", 3],
+        ["Qual é a estação do ano que a natureza fica toda florida? ", "Inverno", "Outono", "Primavera", "Verão", 3],
         ["Qual é a capital da Alemanha?", "Munique", "Berlim", "Hamburgo", "Frankfurt", 2],
         ["Quais são os países que fazem parte da Península Ibérica?", "Espanha e França", "Espanha e Itália", "Portugal e Espanha", "Itália e Portugal", 3],
         ["Qual é o maior lago da África?", "Lago Vitória", "Lago Niassa", "Lago Tanganica", "Lago Malawi", 1],
         ["Em que continente está localizado o Deserto do Atacama?", "África", "Ásia", "América do Sul", "Oceania", 3],
-        ["Qual é a capital da Coreia do Sul?", "Pequim", "Seul", "Tóquio", "Bangcoc", 2],
-        ["Em que oceano está localizado o Cabo da Boa Esperança?", "Atlântico", "Índico", "Pacífico", "Ártico", 2],
+        ["Quem nasce no Brasil é?", "Canadense", "Brasileiro", "Africano", "Europeu", 2],
+        ["Qual não é a atividade agropecuária?", "Cultivar Soja", "Culvtivar milho", "Produzir Carros", "Cultivar café", 3],
         ["Qual é a capital da Espanha?", "Lisboa", "Madri", "Barcelona", "Valência", 2],
         ["Em que país está localizado o Mar Morto?", "Israel", "Jordânia", "Líbano", "Síria", 2],
         ["Qual é o país mais extenso da América do Sul?", "Argentina", "Brasil", "Colômbia", "Peru", 2],
@@ -92,7 +90,7 @@ questao = [
         ["Os alimentos produzidos de forma saudável e que não agridem o meio ambiente são chamados de:", "Agrotóxicos.","Transgênicos.","Industrializados.","Orgânicos",4],
         [" O leite é adquirido de qual atividade?","Extrativismo.","Pecuária.", "Agricultura.","Horticultura.",2],
         ["Onde se localiza a maior parte da água do nosso Planeta?","Rios.","Oceanos.", "Geleiras.","Lagoas.",2],
-        ["No ciclo hidrológico, a água circula em quais estados físicos?","Líquido, gasoso e sólido.","Sólido, congelado e líquido.", "Sólido e líquido.","Gasoso, vapor e líquido.",3],
+        ["Qual é o profissional que vive nas estradas brasileiras?","Caminhoneiro ","Cavaleiro", "Professor.","Nadador",1],
         ["Os mapas podem representar muitos aspectos de nosso dia a dia e de nossas vidas. Qual dos instrumentos abaixo não é utilizado para desenhar um mapa?", "Compasso.", "Ampulheta.", "Esquadro.", "Régua.",1 ],
         ["O mapa é uma representação gráfica e métrica de uma porção de território sobre uma superfície. Como se chama a ciência que estuda e elabora os mapas?", "Geografia", "Cartografia", "Iconografia", "Estatística", 1],
         ["Qual dos conceitos abaixo não faz parte da linguagem cartográfica?", "Símbolos", "Legenda", "Cursos de água", "Escala", 3],
@@ -103,7 +101,8 @@ questao = [
         ["Qual Instrumento é capaz de indicar a localização no espaço através de satélites?", "Bússola", "GPS", "Estrelas", "Mapas", 2],
         ["O Brasil é composto por 5 regiões. Qual delas ocupa a maior área territorial?", "Norte", "Sudeste", "Sul", "Nordeste", 1],
         ["Devido à gravidade da lua, ela exerce influência direta na Terra. Sua força gravitacional consegue mover grandes massas de água, conforme a alteração de suas fases. A lua é considerada:", "Estrela", "Satélite Artificial", "Satélite Natural", "Planeta", 3],
-        ["Como são chamadas as pessoas que trabalham nas fábricas em troca de um salário mínimo?", "Empreendedores", "Agrônomos", "Autônomos", "Operários", 4]],
+        ["Como são chamadas as pessoas que trabalham nas fábricas em troca de um salário mínimo?", "Empreendedores", "Agrônomos", "Autônomos", "Operários", 4],
+        ["Qual é o meio de comunicação mais portátil dentre essas opcções?", "Notebook", "Computador", "Rádio", "Celular", 4]],
     [
         ["A água e os sais minerais e outros elementos são imprescindíveis para que aconteça a fotossíntese, dentre eles, é necessário:", "o vento", "A pedra", "O fogo.", "A luz solar", 4],
         ["Qual dos gases abaixo é utilizado pelos vegetais na fotossíntese e necessário para a produção do seu próprio alimento?", "Oxigênio", "Gás carbônico", "Hidrogênio", "Nitrogênio", 2],
@@ -114,7 +113,7 @@ questao = [
         ["Na fotossíntese, os vegetais absorvem o gás ______________ e liberam gás __________. As palavras que completamo trecho são:", "hidrogênio,carbônico.", "carbônico,oxigênio", "oxigênio,nitrogênio.", "nitrogênio,carbônico.", 2],
         ["Ele é um de tipo de carboidrato que está disponível abundantemente na natureza, ocorrendo em quantidade superior à da celulose. Como é chamada essa reserva de glicose dos vegetais?", "Clorofila", "Amido", "Insulina", "Glicogênio", 2],
         ["As plantas, algas, cianobactérias e algumas bactérias realizam fotossíntese e são denominados seres autótrofos ou seres:", "elétrons", "cloroplastos", "carbonos", "clorofilados", 4],
-        ["A bolacha-do-mar tem um esqueleto feito de um material chamado carbonato de cálcio, sendo o mesmo das conchas.Ela se alimenta de algas, sendo considerada:", "ser autônomo.", "animal autotrófico", "planta heterotrófica", "animal heterotrófico", 4],
+        ["Não é órgão do sistema respiratório", "Pulmão", "Diafragma", "Faringe", "Intestino", 4],
         ["Qual é o órgão responsável pelo bombeamento do sangue no corpo humano?", "Pulmão", "Coração", "Cérebro", "Estômago", 2],
         ["O que é a fotossíntese?", "Respiração de plantas", "Digestão de animais", "Produção de oxigênio", "Queima de calorias", 3],
         ["Qual é o planeta mais próximo do Sol no nosso sistema solar?", "Vênus", "Marte", "Mercúrio", "Júpiter", 3],
@@ -136,7 +135,7 @@ questao = [
         ["Qual é a unidade básica de que se forma a  vida?", "Célula", "Átomo", "Molécula", "Gene", 1],
         ["Como são chamados os animais que são criados pelas pessoas em suas casas?", "Domésticos", "Valentes", "Selvagens.", "Parentes", 1],
         ["Qual é o nome do processo de transformação de um gás para o estado líquido?", "Evaporação", "Condensação", "Solidificação", "Sublimação", 2],
-        ["Qual é o nome da substância que dá cor às folhas das plantas?", "Clorofila", "Melanina", "Hemoglobina", "Colágeno", 1],
+        ["Quais alimentos fazem parte de uma alimentação saudável?", "Salada", "Chocolate", "Hamburguer", "Salgadinho", 1],
         ["O que expele um vulcão?", "Água", "Gases e magma", "Luz", "Metais", 2],
         ["Qual é o nome do maior órgão do corpo humano?", "Coração", "Pulmão", "Fígado", "Cérebro", 3],
         ["O que é um terremoto?", "Explosão vulcânica", "Choques tectônicos", "Tempestade intensa", "Inundação repentina", 2],
@@ -157,4 +156,3 @@ questao = [
         ["Qual é a principal importância da digestão para o nosso corpo?", "Eliminar resíduos", "Gerar energia", "Regular o sangue", "Produzir enzimas", 2],
         ["Em um aquário existe um elemento não-vivo, ou seja, abiótico, que os peixes precisam para a sua respiração. Que elemento é esse?", "Oxigênio", "Plantas", "Areia", "Luz", 1],]
 ]
-

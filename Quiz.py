@@ -209,6 +209,7 @@ class Quiz(pygame.sprite.Sprite):
             else:
                 self.alternativas_certas_erradas(self, D[0], D[1], alternativa_errada, 0.7, questions, 4)
             
+            
             materia_cont_perguntas[materia] += 1
 
             pygame.time.delay(1500)
